@@ -1,0 +1,199 @@
+/* ================================================================
+   SPINE VISUALIZATION — Scroll-driven storytelling section
+   ================================================================ */
+.xray {
+  background: var(--xray);
+  color: var(--xray-line);
+  position: relative;
+}
+.xray::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(237, 234, 224, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+.xray .section-head { position: relative; z-index: 1; }
+.xray .section-head p { color: #aeb7c6; }
+
+/* Scroll storytelling track + sticky stage */
+.spine-story { position: relative; height: 400vh; }
+.spine-stage-sticky {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+.spine-connectors {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.spine-connectors path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  stroke-dasharray: var(--clen, 420);
+  stroke-dashoffset: var(--clen, 420);
+  transition: opacity 0.45s ease, stroke-dashoffset 0.55s var(--ease-out);
+}
+.spine-connectors path.active { opacity: 0.85; stroke-dashoffset: 0; }
+
+.spine-sticky-inner { position: relative; z-index: 1; width: 100%; }
+.spine-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 300px) 1fr;
+  align-items: stretch;
+  gap: 0;
+}
+.spine-col { position: relative; }
+
+/* Callouts */
+.callout {
+  position: absolute;
+  max-width: 280px;
+  opacity: 0;
+  transform: translateY(30px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.65s ease, transform 0.65s ease, visibility 0s linear 0.65s;
+}
+.callout.inactive {
+  opacity: 0;
+  transform: translateY(30px);
+  visibility: hidden;
+  pointer-events: none;
+}
+.callout.active {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.65s ease, transform 0.65s ease, visibility 0s;
+}
+.callout .tag {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--sage-light);
+  display: block;
+  margin-bottom: 6px;
+}
+.callout h4 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--xray-line);
+}
+.callout p { font-size: 14px; color: #aeb7c6; line-height: 1.55; }
+
+/* Callout positions */
+#callout-1 { top: 12%; right: 0; text-align: right; }
+#callout-3 { top: 62%; right: 0; text-align: right; }
+#callout-2 { top: 38%; left: 0; }
+#callout-4 { top: 80%; left: 0; }
+
+/* Spine SVG */
+.spine-svg-wrap { position: relative; display: flex; justify-content: center; }
+#spine-svg {
+  height: min(78vh, 720px);
+  min-height: 480px;
+  width: auto;
+  aspect-ratio: 240/760;
+  transform: translateY(var(--drift, 0px)) scale(var(--zoom, 1));
+  will-change: transform;
+}
+#spine-path {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+.xray.in-view #spine-path { stroke-dashoffset: 0; }
+
+.vertebra {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.5s ease, fill 0.5s ease, transform 0.5s ease;
+}
+.xray.in-view .vertebra { opacity: 1; }
+.xray.in-view .vertebra.is-dim { opacity: 0.24; fill: #ede9e0; }
+.xray.in-view .vertebra.is-active { fill: var(--accent); opacity: 1; transform: scale(1.16); }
+
+/* Stage progress rail */
+.spine-progress {
+  position: absolute;
+  left: 32px; bottom: 36px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--xray-line-dim);
+}
+.progress-count b { color: var(--xray-line); font-weight: 500; font-size: 15px; }
+.progress-count em { font-style: normal; opacity: 0.75; margin-left: 3px; }
+.progress-track {
+  position: relative; display: block;
+  width: 150px; height: 2px;
+  border-radius: 2px;
+  background: rgba(237, 234, 224, 0.13);
+  overflow: hidden;
+}
+.progress-fill {
+  position: absolute; inset: 0;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+.progress-region {
+  color: var(--sage-light);
+  transition: opacity 0.22s ease;
+  white-space: nowrap;
+}
+
+/* --- Responsive: Spine --- */
+@media (max-width: 1080px) {
+  #spine-svg { height: min(70vh, 600px); }
+  #callout-1, #callout-2, #callout-3, #callout-4 { max-width: 225px; }
+  .callout h4 { font-size: 17px; }
+  .callout p { font-size: 13.5px; }
+}
+@media (max-width: 920px) {
+  .spine-story { height: 360vh; }
+  .spine-stage-sticky {
+    flex-direction: column;
+    justify-content: center;
+    padding: calc(var(--nav-h) * 0.5) 24px 28px;
+  }
+  .spine-sticky-inner {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    width: 100%; height: auto;
+  }
+  .spine-stage, .spine-col { display: contents; }
+  .spine-svg-wrap { order: -2; margin-bottom: 6px; }
+  #spine-svg { height: min(42vh, 380px); min-height: 0; }
+  .spine-connectors { display: none; }
+  .spine-progress { position: static; order: -1; margin: 14px 0 10px; }
+  .progress-track { width: 110px; }
+  #callout-1, #callout-2, #callout-3, #callout-4 {
+    position: relative; top: auto; left: auto; right: auto;
+    text-align: center; max-width: 430px;
+  }
+  .callout { display: none; }
+  .callout.active { display: block; animation: calloutIn 0.55s ease both; }
+}
+@keyframes calloutIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}

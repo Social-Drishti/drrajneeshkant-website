@@ -1,0 +1,122 @@
+/* ================================================================
+   RESPONSIVE — All breakpoints
+   ================================================================ */
+
+/* --- Tablet (max 1080px) --- */
+@media (max-width: 1080px) {
+  .wrap, .wrap-wide { padding: 0 24px; }
+  section { padding: var(--section-py-sm) 0; }
+  .footer-top { grid-template-columns: 1.2fr 1fr 1fr; gap: 32px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .drawer { width: min(450px, 70vw); padding: 40px 32px; }
+  .drawer-link { font-size: 28px; padding: 18px 20px; }
+}
+
+/* --- Small Tablet (max 920px) --- */
+@media (max-width: 920px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .hero-art { order: -1; max-width: 360px; margin: 0 auto; }
+
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 32px;
+  }
+  .footer-brand { grid-column: 1 / -1; }
+
+  .testimonial-track {
+    padding: 0 24px;
+    gap: 20px;
+  }
+  .testimonial-card { min-width: 300px; }
+  .drawer { width: min(380px, 75vw); padding: 36px 28px; }
+  .drawer-link { font-size: 26px; padding: 16px 18px; }
+}
+
+/* --- Mobile (max 640px) --- */
+@media (max-width: 640px) {
+  :root {
+    --section-py: 64px;
+    --section-py-sm: 48px;
+  }
+
+  .wrap, .wrap-wide { padding: 0 20px; }
+  section { padding: var(--section-py) 0; }
+  .section-head { margin-bottom: 36px; }
+
+  h1 { font-size: clamp(30px, 8vw, 40px); }
+  h2 { font-size: clamp(24px, 6vw, 32px); }
+
+  .nav { padding: 12px 20px; }
+  .site-header.is-scrolled .nav { padding: 10px 20px; }
+  .logo-text .name { font-size: 16px; }
+  .logo-text .subtitle { display: none; }
+
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-4 { grid-template-columns: 1fr; }
+  .grid-5 { grid-template-columns: 1fr 1fr; }
+
+  .hero-ctas { flex-direction: column; }
+  .hero-ctas .btn { width: 100%; }
+  .trust-row { gap: 20px; }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+
+  .testimonial-card { min-width: 280px; padding: 24px; }
+
+  .faq-question { font-size: 16px; padding-right: 40px; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 24px; }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .btn-lg { padding: 14px 28px; font-size: 15px; }
+
+  .drawer { width: 90vw; padding: 28px 20px; }
+  .drawer-link { font-size: 24px; padding: 14px 16px; }
+  .drawer-book { padding: 16px 24px; font-size: 15px; }
+}
+
+/* --- Small Mobile (max 380px) --- */
+@media (max-width: 380px) {
+  .wrap, .wrap-wide { padding: 0 16px; }
+  .hero { padding: calc(var(--nav-h) + 24px) 0 48px; }
+  .hero h1 { font-size: 28px; }
+  .hero p.lead { font-size: 15px; }
+  .trust-row { gap: 16px; }
+  .trust-item strong { font-size: 18px; }
+  .drawer { width: 95vw; padding: 24px 16px; }
+  .drawer-link { font-size: 20px; padding: 10px 14px; }
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .preloader { display: none !important; }
+  .site-header { transition: none !important; }
+  .site-header .nav { transition: none !important; }
+  .site-header .logo-img { transition: none !important; }
+  #spine-path, .callout, .vertebra { transition: none !important; }
+  .drawer, .drawer-overlay, .burger span, .drawer-link, .drawer-book { transition: none !important; }
+  #spine-svg { transform: none !important; }
+  .spine-connectors path, .progress-fill, .progress-region { transition: none !important; }
+  .callout.active { animation: none !important; }
+  .card, .treatment-card, .condition-card, .blog-card, .video-card { transition: none !important; }
+  .card:hover, .treatment-card:hover, .condition-card:hover, .blog-card:hover, .video-card:hover { transform: none !important; }
+  .btn:hover { transform: none !important; }
+  .card-link:hover { gap: 4px !important; }
+}
